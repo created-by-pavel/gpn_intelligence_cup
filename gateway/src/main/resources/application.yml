@@ -1,0 +1,42 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+
+management:
+  endpoint.gateway.enabled: true
+  endpoints.web.exposure.include: gateway
+
+spring:
+  application.name: gateway
+  cloud:
+    gateway:
+      discovery.locator.enabled: true
+      routes:
+        - id: vk_route
+          uri: lb://vk-service
+          predicates:
+            - Path=/vk/**
+          filters:
+            - AuthFilter
+        - id: users_route
+          uri: lb://users-service
+          predicates:
+            - Path=/users/**
+        - id: openapi
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+          uri: http://localhost:${server.port}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: users
+        url: users/v3/api-docs
+      - name: vk
+        url: vk/v3/api-docs
