@@ -33,8 +33,62 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
+    networks:
+      - spring
+  eureka-server:
+    image: crbpavel/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+
+  gateway:
+    image: crbpavel/gateway:latest
+    container_name: gateway
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
+  users:
+    image: crbpavel/users:latest
+    container_name: users
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres
+  vk:
+    image: crbpavel/vk:latest
+    container_name: vk
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
 networks:
   postgres:
+    driver: bridge
+  spring:
     driver: bridge
 
 volumes:

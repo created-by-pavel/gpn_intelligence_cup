@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /vk
+  error:
+    include-message: always
+
+management:
+  health:
+    livenessState.enabled: true
+    readinessState.enabled: true
+  endpoint.health.probes.enabled: true
+
+spring:
+  application:
+    name: vk-service
+  zipkin:
+    base-url: http://zipkin:9411
+  cache:
+    caffeine:
+      spec: maximumSize=50, expireAfterAccess=1h
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka
+
+vk:
+  token: "vk1.a.vE_3u1UPJds7Q7K5lnsZfW_KxGv4W4tcE2Th9L12NmutCFDyOQu-U1X4NaWbyHZOG_wwSymq-IlUEK3pusgpqhRcXsRk2yDq2X_Mz9myEZaVtayQvE5DZdVUjPeCY6QxeiokMFD1YrX1RvTW9zXG_1OUF_r5yYn05IQo3pOwYLxVpcMotfWAxCcPjQYAqk6QmWl4wLgwKn8YcV43107EKQ"
+  client-id: 51464765
