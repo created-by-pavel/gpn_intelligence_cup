@@ -13,7 +13,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableDiscoveryClient
 @EnableCaching
 @OpenAPIDefinition(info =
-@Info(title = "VK", version = "1.6.12", description = "Documentation VK API")
+@Info(title = "VK", version = "1.6.12", description = "This is a service for working with VK API")
 )
 public class VkApplication {
     public static void main(String[] args) {

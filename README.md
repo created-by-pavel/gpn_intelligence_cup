@@ -1,11 +1,50 @@
 # GPN_INTELLIGENCE_CUP 2022
 
 ## Описание решения:
-Стэк: Spring Boot, Spring Cloud, vk-java-sdk, PostgreSQL, zipkin, Docker  
+Стэк: Spring Boot, Spring Cloud, vk-java-sdk, PostgreSQL, zipkin, Docker, jib, Caffeine, Springdoc-openapi  
 
 Документация: http://localhost:8081/webjars/swagger-ui/index.html  
-Docker-Hub: https://hub.docker.com/u/crbpavel  
+Docker-Hub: https://hub.docker.com/u/crbpavel
 
+я реализовал 2 сервиса:
+1. vk-Service - Сервис для работы с API VK
+2. user-Service - Сервис для работы с аутентификацией  
+Информация о пользователе хранится в БД (PostgreSQL)  
+
+
+также в решении присутствует:
+1. Eureka-Server - Сервис для регистрации и общения микросервисов
+2. Api_Gateway - Сервис для роутинга запросов    
+Этот сервис принимает запросы от пользователя, определяет к какому сервису идти, и перенаправляет запрос.
+Также тут реализован Gateway-Filter, который проверяет наличие токена в хедере запроса и перенаправляет его на user-service для подтверждения.
+После чего идет роутинг запроса к нужному сервису. Пока что, он навешан только на vk-Service. В дальнейшем этот фильтр можно навесить на другие сервисы, чтобы они могли работать только с авторизованными пользователями.
+
+## Запуск:
+
+### качаем репозиторий
+```bash
+git clone https://github.com/created-by-pavel/gpn_intelligence_cup
+```
+
+### настройка базы
+```bash
+docker-compose up postgres
+```
+
+```bash
+docker exec -it postgres bash
+psql -U crbpavel
+CREATE DATABASE user;
+```
+
+### дальнейший запуск
+дальнейший порядок запуска микросервисов не важен, тк в конце концов все они поднимутся и будут работать
+
+```bash
+docker-compose up -d
+```
+
+![alt text](https://cdn.geekwire.com/wp-content/uploads/2018/11/181112-elon-fh21-1260x755.jpg)
 
 ## Описание задания
 

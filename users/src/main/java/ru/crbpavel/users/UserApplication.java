@@ -12,7 +12,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @OpenAPIDefinition(info =
-@Info(title = "USERS", version = "1.6.12", description = "Documentation Users-Service")
+@Info(title = "USERS", version = "1.6.12", description = "This is a authentication service. \n" +
+        "With this service our user can signIn or signUp to use our API. This service also check the user token")
 )
 public class UserApplication {
     public static void main(String[] args) {
