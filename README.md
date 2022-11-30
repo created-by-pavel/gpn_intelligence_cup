@@ -21,7 +21,7 @@ Docker-Hub: https://hub.docker.com/u/crbpavel
 
 ## Запуск:
 
-### качаем репозиторий
+### клонирование
 ```bash
 git clone https://github.com/created-by-pavel/gpn_intelligence_cup
 ```
@@ -44,7 +44,7 @@ CREATE DATABASE user;
 docker-compose up -d
 ```
 
-![alt text](https://cdn.geekwire.com/wp-content/uploads/2018/11/181112-elon-fh21-1260x755.jpg)
+![alt text](https://sheleadsafrica.org/wp-content/uploads/2016/09/kanye_approves.gif)
 
 ## Описание задания
 
